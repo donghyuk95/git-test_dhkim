@@ -1,0 +1,38 @@
+test file
+
+Use broadcast jupyter on my local machine
+
+on ACC:
+
+module load anaconda3  ## 아나콘다 입력시 안되는 모듈 존재(hspython) 하므로 아래 두줄 입력
+
+module load python-3.6  # 뭐가 안될시에 아나콘다 입력하기
+
+jupyter notebook --no-browser --port=8884
+
+Then on my local machine, ## 순서 중요하다. 로그인하여 위에 부분 입력한 뒤, 새 터미널에서 아래 것을 입력한다.
+
+ssh -N -f -L localhost:8899:localhost:8884 dhkim@acc.yonsei.ac.kr
+
+And open the browser and go to http://localhost:8899
+
+--------------------------------------
+8885 8886 8887 사용중
+-----------------------------------------
+$$ 포트 죽이는법
+lsof -i -P -n | grep LISTEN     : check open port in server
+
+netstat -nap | grep ****        : check port
+lsof -i TCP:****                : check running program in the port
+fuser -k -n tcp ****            : kill the running program in the port ( 포트 넘어갔을시 죽이기)
+
+lsof -i :****                   : check open port in local
+kill -9 (PID)                   : kill the running port in local ( 권한 없어 못함)
+
+ vi ~/.bashrc
+alias mm='module load python-3.6'
+alias jj='jupyter notebook --no-browser --port=8884'
+
+Alias sss='ssh dhkim@acc.yonsei.ac.kr'
+Alias lll='ssh -N -f -L localhost:8899:localhost:8884 dhkim@acc.yonsei.ac.kr'
+Source basic
